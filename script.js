@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('loginForm');
-    const flowerPopup = document.getElementById('flowerPopup');
-    const continueBtn = document.getElementById('continueBtn');
+    const flowerPopup = null;
+    const continueBtn = null;
 
     // Handle login form submission
     loginForm.addEventListener('submit', function(e) {
@@ -22,36 +22,11 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Langsung pindah ke halaman confess
+        // Langsung pindah ke halaman confess (tanpa popup bunga)
         window.location.href = 'confess.html';
     });
 
-    function goToConfess(){
-        if (document.body.dataset.navDone === '1') return;
-        document.body.dataset.navDone = '1';
-        document.body.style.transition = 'opacity 700ms ease';
-        document.body.style.opacity = '0';
-        setTimeout(() => { window.location.href = 'confess.html'; }, 700);
-    }
-
-    // Handle continue button click (smooth transition)
-    continueBtn.addEventListener('click', goToConfess);
-
-    // In pure blossom mode: click anywhere on popup to proceed
-    flowerPopup.addEventListener('click', function(e) {
-        if (flowerPopup.classList.contains('pure')) {
-            // avoid double fire if button already handled
-            if (e.target === continueBtn) return;
-            goToConfess();
-        }
-    });
-
-    // Also allow Enter key to proceed in pure mode
-    document.addEventListener('keydown', function(e){
-        if (e.key === 'Enter' && flowerPopup.classList.contains('pure')) {
-            goToConfess();
-        }
-    });
+    // Popup bunga dihapus: tidak ada handler tambahan
 
     // Add some interactive effects
     const inputs = document.querySelectorAll('input');
@@ -66,8 +41,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Add extra sparkle effect to flower garden
-    const flowerGarden = document.querySelector('.flower-garden');
-    if (flowerGarden) {
+    const flowerGarden = null;
+    if (false) {
         setInterval(() => {
             const extraSparkle = document.createElement('div');
             extraSparkle.className = 'sparkle';
@@ -84,9 +59,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 800);
     }
 
-    // Render pixel flower when pure mode is active
-    const pixelStage = document.getElementById('pixelStage');
-    if (pixelStage) {
+    // Render pixel flower only if popup in pure mode (avoid on login page)
+    const pixelStage = null;
+    if (false) {
         // Procedurally build a sakura tree map (64x40)
         function buildSakuraMap(cols=64, rows=40){
             const g = Array.from({length: rows}, ()=>Array(cols).fill('.'));
