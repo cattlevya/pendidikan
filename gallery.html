@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Pixel Gallery</title>
+  <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+  <header class="px-header">
+    <div class="brand">♡ Pixelgram</div>
+  </header>
+
+  <section class="px-uploader">
+    <form id="uploadForm">
+      <label class="px-file">
+        <input type="file" id="photoInput" accept="image/*" required>
+        <span>Select Photo</span>
+      </label>
+      <input type="text" id="captionInput" class="px-text" placeholder="Write a caption..." maxlength="140">
+      <button type="button" id="chooseFolder" class="px-btn">Choose Folder</button>
+      <button type="submit" class="px-btn">Upload</button>
+    </form>
+    <small class="hint">Secara default foto disimpan di browser. Klik "Choose Folder" untuk menyimpan file ke folder lokal (Chrome/Edge).</small>
+  </section>
+
+  <main class="px-feed" id="feed">
+    <!-- Contoh post; ganti src & caption sesuai kebutuhan -->
+    <article class="px-post">
+      <figure class="px-card"><img src="photos/p1.jpg" alt="us 1"></figure>
+      <figcaption class="px-caption">First day we met ✨</figcaption>
+    </article>
+    <article class="px-post">
+      <figure class="px-card"><img src="photos/p2.jpg" alt="us 2"></figure>
+      <figcaption class="px-caption">Coffee and smiles ☕️</figcaption>
+    </article>
+    <article class="px-post">
+      <figure class="px-card"><img src="photos/p3.jpg" alt="us 3"></figure>
+      <figcaption class="px-caption">Sunset walk 🌇</figcaption>
+    </article>
+    <article class="px-post">
+      <figure class="px-card"><img src="photos/p4.jpg" alt="us 4"></figure>
+      <figcaption class="px-caption">Our favorite place 🌸</figcaption>
+    </article>
+  </main>
+
+  <script src="gallery.js"></script>
+</body>
+</html>
+
