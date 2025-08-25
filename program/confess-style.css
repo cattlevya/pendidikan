@@ -1,0 +1,291 @@
+@font-face {
+    font-family: 'Minecraft CG';
+    src: url('Minecraft.ttf') format('truetype');
+    font-display: swap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Minecraft CG', 'Press Start 2P', 'VT323', 'Pixelify Sans', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, sans-serif;
+    image-rendering: pixelated;
+    background: repeating-linear-gradient(0deg, #2b2230 0 4px, #241c29 4px 8px);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.confess-container {
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.confess-content {
+    background: #3a2f42;
+    padding: 36px 36px;
+    border-radius: 8px;
+    border: 6px solid #ff7fb0; /* panjangkan/tebalkan border */
+    box-shadow: 0 10px 0 #c65284;
+    animation: fadeInUp 1s ease;
+}
+
+.hearts {
+    font-size: 30px;
+    margin-bottom: 30px;
+    animation: pulse 2s infinite;
+}
+
+.question {
+    color: #ffffff; /* putih */
+    font-size: 32px;
+    margin-bottom: 40px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 0 0 0 transparent; /* hilangkan glow yang mengaburkan */
+}
+
+.buttons-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.yes-btn {
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Minecraft CG', inherit;
+    background: #6bd66b;
+    color: #1b1b1b;
+    border: 4px solid #54b354;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    box-shadow: 0 6px 0 #2e7a2e;
+    position: relative;
+    z-index: 10;
+}
+
+.yes-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 20px rgba(76, 175, 80, 0.4);
+}
+
+.no-btn {
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Minecraft CG', inherit;
+    background: #ff7fb0;
+    color: #1b1b1b;
+    border: 4px solid #e66498;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    box-shadow: 0 6px 0 #c65284;
+    position: relative;
+    z-index: 5;
+}
+
+.no-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Floating Hearts Animation */
+.floating-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.floating-heart {
+    position: absolute;
+    font-size: 20px;
+    animation: float 6s linear infinite;
+    opacity: 0.7;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    animation: fadeIn 0.5s ease;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffd1e6; /* soft pink */
+    padding: 40px 36px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 12px 0 #c65284; /* pixel shadow */
+    border: 6px solid #ff7fb0; /* pixel border */
+    animation: slideIn 0.5s ease;
+    max-width: 560px;
+    width: 92%;
+    font-family: 'Minecraft CG', 'Press Start 2P', sans-serif;
+}
+
+.celebration {
+    font-size: 40px;
+    margin-bottom: 20px;
+    animation: bounce 1s infinite;
+}
+
+.modal-content h2 {
+    color: #1b1b1b;
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-family: 'Minecraft CG', 'Press Start 2P', sans-serif;
+    background: #ffd1e6; /* soft pink */
+    display: inline-block;
+    padding: 10px 14px;
+    border: 6px solid #ff7fb0; /* pixel border */
+    border-radius: 6px;
+    box-shadow: 0 6px 0 #c65284; /* pixel shadow */
+}
+
+.modal-content p {
+    color: #1b1b1b;
+    font-size: 18px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.close-btn {
+    margin-top: 22px;
+    padding: 12px 24px;
+    background: #ff7fb0; /* pixel pink */
+    color: #1b1b1b;
+    border: 6px solid #e66498;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 0 #c65284;
+    transition: transform 0.15s ease;
+    font-family: 'Minecraft CG', 'Press Start 2P', sans-serif;
+}
+
+.close-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    to {
+        text-shadow: 2px 2px 20px rgba(255, 107, 107, 0.5);
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.7;
+    }
+    90% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .confess-content {
+        padding: 30px 20px;
+    }
+    
+    .question {
+        font-size: 24px;
+    }
+    
+    .buttons-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .yes-btn, .no-btn {
+        padding: 12px 30px;
+        font-size: 18px;
+    }
+} 
