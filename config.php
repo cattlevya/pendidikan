@@ -1,9 +1,10 @@
 <?php
-// Database configuration (if using MySQL later)
+// Database configuration
 define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_USER', 'romantic_user');
+define('DB_PASS', 'password123');
 define('DB_NAME', 'romantic_web');
+define('USE_DATABASE', true); // Set to false to use JSON files
 
 // Application settings
 define('SITE_NAME', 'Portal Akademik');
