@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+require_once "config_vercel.php";
 
 class VercelDatabase {
     private $connection;
@@ -64,22 +64,22 @@ class VercelDatabase {
     
     public function verifyUser($username, $password) {
         $user = $this->getUserByUsername($username);
-        if ($user && password_verify($password, $user['password'])) {
+        if ($user && password_verify($password, $user["password"])) {
             return $user;
         }
         return false;
     }
     
     // Photo functions
-    public function addPhoto($filename, $caption, $uploadedBy = null) {
+    public function addPhoto($filename, $caption, $uploadedBy = null, $url = null, $public_id = null) {
         if (!$this->isConnected()) {
-            return $this->addPhotoJSON($filename, $caption, $uploadedBy);
+            return $this->addPhotoJSON($filename, $caption, $uploadedBy, $url, $public_id);
         }
         
         $stmt = $this->connection->prepare(
-            "INSERT INTO photos (filename, caption, uploaded_by) VALUES (?, ?, ?)"
+            "INSERT INTO photos (filename, caption, uploaded_by, url, public_id) VALUES (?, ?, ?, ?, ?)"
         );
-        return $stmt->execute([$filename, $caption, $uploadedBy]);
+        return $stmt->execute([$filename, $caption, $uploadedBy, $url, $public_id]);
     }
     
     public function getAllPhotos() {
@@ -134,7 +134,7 @@ class VercelDatabase {
     
     // JSON Fallback Functions
     private function createUserJSON($username, $password, $email = null) {
-        $users_file = 'users_data.json';
+        $users_file = "users_data.json";
         $users = [];
         
         if (file_exists($users_file)) {
@@ -143,39 +143,39 @@ class VercelDatabase {
         
         // Check if user already exists
         foreach ($users as $user) {
-            if ($user['username'] === $username) {
+            if ($user["username"] === $username) {
                 return false;
             }
         }
         
         $users[] = [
-            'id' => count($users) + 1,
-            'username' => $username,
-            'password' => password_hash($password, PASSWORD_DEFAULT),
-            'email' => $email,
-            'created_at' => date('Y-m-d H:i:s')
+            "id" => count($users) + 1,
+            "username" => $username,
+            "password" => password_hash($password, PASSWORD_DEFAULT),
+            "email" => $email,
+            "created_at" => date("Y-m-d H:i:s")
         ];
         
         return file_put_contents($users_file, json_encode($users, JSON_PRETTY_PRINT)) !== false;
     }
     
     private function getUserByUsernameJSON($username) {
-        $users_file = 'users_data.json';
+        $users_file = "users_data.json";
         if (!file_exists($users_file)) {
             return false;
         }
         
         $users = json_decode(file_get_contents($users_file), true) ?? [];
         foreach ($users as $user) {
-            if ($user['username'] === $username) {
+            if ($user["username"] === $username) {
                 return $user;
             }
         }
         return false;
     }
     
-    private function addPhotoJSON($filename, $caption, $uploadedBy = null) {
-        $photos_file = 'photos_data.json';
+    private function addPhotoJSON($filename, $caption, $uploadedBy = null, $url = null, $public_id = null) {
+        $photos_file = "photos_data.json";
         $photos = [];
         
         if (file_exists($photos_file)) {
@@ -183,18 +183,20 @@ class VercelDatabase {
         }
         
         $photos[] = [
-            'id' => count($photos) + 1,
-            'filename' => $filename,
-            'caption' => $caption,
-            'uploaded_by' => $uploadedBy,
-            'uploaded_at' => date('Y-m-d H:i:s')
+            "id" => count($photos) + 1,
+            "filename" => $filename,
+            "caption" => $caption,
+            "uploaded_by" => $uploadedBy,
+            "url" => $url,
+            "public_id" => $public_id,
+            "uploaded_at" => date("Y-m-d H:i:s")
         ];
         
         return file_put_contents($photos_file, json_encode($photos, JSON_PRETTY_PRINT)) !== false;
     }
     
     private function getAllPhotosJSON() {
-        $photos_file = 'photos_data.json';
+        $photos_file = "photos_data.json";
         if (!file_exists($photos_file)) {
             return [];
         }
@@ -203,32 +205,32 @@ class VercelDatabase {
     }
     
     private function deletePhotoJSON($filename) {
-        $photos_file = 'photos_data.json';
+        $photos_file = "photos_data.json";
         if (!file_exists($photos_file)) {
             return false;
         }
         
         $photos = json_decode(file_get_contents($photos_file), true) ?? [];
         $photos = array_filter($photos, function($photo) use ($filename) {
-            return $photo['filename'] !== $filename;
+            return $photo["filename"] !== $filename;
         });
         
         return file_put_contents($photos_file, json_encode(array_values($photos), JSON_PRETTY_PRINT)) !== false;
     }
     
     private function saveConfessionResponseJSON($response, $username) {
-        $response_file = 'confession_response.json';
+        $response_file = "confession_response.json";
         $response_data = [
-            'response' => $response,
-            'username' => $username,
-            'response_at' => date('Y-m-d H:i:s')
+            "response" => $response,
+            "username" => $username,
+            "response_at" => date("Y-m-d H:i:s")
         ];
         
         return file_put_contents($response_file, json_encode($response_data, JSON_PRETTY_PRINT)) !== false;
     }
     
     private function getLatestConfessionResponseJSON() {
-        $response_file = 'confession_response.json';
+        $response_file = "confession_response.json";
         if (!file_exists($response_file)) {
             return false;
         }
